@@ -66,9 +66,9 @@ configs:
             value: {{inputs.ANDROID_PACKAGE_NAME}}
           - name: ANDROID_KEYSTORE_BASE64
             value: {{inputs.ANDROID_KEYSTORE_BASE64}}
-      topics:
-        - flutter
-        - android
+        topics:
+          - flutter
+          - android
 
   - branches:
     - name: main
