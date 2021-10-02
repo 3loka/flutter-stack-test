@@ -72,6 +72,8 @@ jobs:
           find: "cupertino_icons: ^1.0.2"
           replace: "cupertino_icons: ^1.0.2 \n english_words: ^4.0.0"
 
+      - name: Flutter get pub
+        run: flutter pub get
 
       - name: Configure git
         run: |
@@ -90,8 +92,7 @@ jobs:
       - name: Flutter get packages
         run: flutter packages get
 
-      - name: Flutter get pub
-        run: flutter pub get
+
 
       # Check for any formatting issues in the code.
       - run: flutter format --set-exit-if-changed .
