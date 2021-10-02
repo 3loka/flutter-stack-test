@@ -79,5 +79,8 @@ configs:
   - environments:
     - name: development
 
+github-apps:
+- slug: codecov
+
 init:
   - uses: ".github/workflows/stack-init.yaml"
