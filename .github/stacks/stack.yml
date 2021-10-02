@@ -42,19 +42,16 @@ inputs:
 
   - name: ANDROID_KEYSTORE_BASE64
     description: Base64 encoded Android Keystore for signing
-    default: 'test'
     required: false
     is_secret: true
 
   - name: ANDROID_PACKAGE_NAME
     description: Android Package name
-    default: 'test'
     required: false
     is_secret: true
 
   - name: GOOGLE_SERVICE_ACCOUNT_KEY
     description: Google Service Account Key
-    default: 'test'
     required: false
     is_secret: true
 
@@ -64,11 +61,11 @@ configs:
         description: 'Flutter deployed to play store'
         secrets: 
           - name: GOOGLE_SERVICE_ACCOUNT_KEY
-            value: {{inputs.GOOGLE_SERVICE_ACCOUNT_KEY}}
+            value: ${{inputs.GOOGLE_SERVICE_ACCOUNT_KEY}}
           - name: ANDROID_PACKAGE_NAME
-            value: {{inputs.ANDROID_PACKAGE_NAME}}
+            value: ${{inputs.ANDROID_PACKAGE_NAME}}
           - name: ANDROID_KEYSTORE_BASE64
-            value: {{inputs.ANDROID_KEYSTORE_BASE64}}
+            value: ${{inputs.ANDROID_KEYSTORE_BASE64}}
         topics:
           - flutter
           - android
