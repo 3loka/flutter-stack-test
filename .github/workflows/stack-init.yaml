@@ -108,11 +108,6 @@ jobs:
       needs: setup
       uses: ${{ github.repository }}/.github/workflows/generate-apk.yml@main
 
-  if: DEPLOY_TO_PLAY_STORE == 'true'
-  deploy_to_aws:
-    needs: setup
-    uses: ${{ github.repository }}/.github/workflows/push-to-playstore.yml@main
-    with:
-      RUBY_VERSION: '${{ github.event.inputs.RUBY_VERSION }}'
+
 
       
