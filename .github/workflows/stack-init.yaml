@@ -106,7 +106,7 @@ jobs:
 
   generate-apk:
       needs: setup
-      uses: 3loka/flutter-stack-test/.github/workflows/generate-apk.yml@main
+      uses: 3loka/flutter-stack-test/.github/workflows/generate-apk.yml@refs/heads/main
 
 
 
