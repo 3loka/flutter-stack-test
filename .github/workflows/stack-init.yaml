@@ -1,0 +1,118 @@
+name: Flutter release
+
+on:
+  workflow_dispatch:
+    inputs:
+      APP_NAME:
+          required: true
+          description: 'Flutter app name'
+
+      JAVA_VERSION:
+        required: true
+        description: 'Java version to be used'
+
+      FLUTTER_VERSION:
+        required: true
+        description: 'Flutter version to be used'
+
+      DEPLOY_TO_PLAY_STORE:
+        required: true
+        description: 'DEPLOY_TO_PLAY_STORE'
+
+jobs:
+  setup:
+    name: Setup a flutter based android stack capable of being deployed to play store
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Setup Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v1
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: beta
+
+      - name: Flutter version
+        run: flutter --version
+
+      - name: Stacks framework code generation
+        run: |
+          flutter create startup_namer
+          cp -r startup_namer/* .
+          rm -rf startup_namer
+          cp .github/stacks/main.dart lib/main.dart
+
+      # - name: substitute user inputs in the workflow files
+      #   uses: microsoft/variable-substitution@v1 
+      #   with:
+      #     files: '.github/workflows/deploy-*.yaml, .github/workflows/build.yaml'
+      #   env:
+      #     __JAVA_VERSION__: '${{ github.event.inputs.JAVA_VERSION }}'
+      #     __FLUTTER_VERSION__: '${{ github.event.inputs.FLUTTER_VERSION }}'
+
+      - name: substitute values in pubspec
+        uses: microsoft/variable-substitution@v1 
+        with:
+          files: 'pubspec.yaml'
+        env:
+          cupertino_icons: ^1.0.2 : 'cupertino_icons: ^1.0.2 \n english_words: ^4.0.0'
+
+      - name: Configure git
+        run: |
+          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+          git config --global user.name "${{ github.actor }}"
+          git remote set-url origin https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+            
+      - name: Commit generated code and initialize workflows
+        run: |
+          git add .
+          git commit -m "Generate framework code and initialize workflows"
+          git push 
+          # We cant push to main since its protected in this stack
+
+      - name: Flutter get packages
+        run: flutter packages get
+
+      - name: Flutter get pub
+        run: flutter pub get
+
+      # Check for any formatting issues in the code.
+      - run: flutter format --set-exit-if-changed .
+
+      - name: Cache pub dependencies
+        uses: actions/cache@v2
+        with:
+          path: ${{ env.FLUTTER_HOME }}/.pub-cache
+          key: ${{ runner.os }}-pub-${{ hashFiles('**/pubspec.lock') }}
+          restore-keys: ${{ runner.os }}-pub-
+
+      - name: Download pub dependencies
+        run: flutter pub get
+
+      # - name: Run build_runner
+      #   run: flutter pub run build_runner build --delete-conflicting-outputs
+
+      # - name: Run analyzer
+      #   run: flutter analyze
+
+      # - name: Run tests
+      #   run: flutter test
+
+  generate-apk:
+      needs: setup
+      uses: ${{ github.repository }}/.github/workflows/generate-apk.yml@main
+
+  if: DEPLOY_TO_PLAY_STORE == 'true'
+  deploy_to_aws:
+    needs: setup
+    uses: ${{ github.repository }}/.github/workflows/push-to-playstore.yml@main
+    with:
+      RUBY_VERSION: '${{ github.event.inputs.RUBY_VERSION }}'
+
+      

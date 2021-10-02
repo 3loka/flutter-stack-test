@@ -1,0 +1,71 @@
+version: 1.0
+
+name: Stack to setup a Flutter app optionally deploy to Google Play store
+description: Use this stack to setup an Android App and deploy to google play store
+branding:
+  icon: "thumbs-up"
+  color: "blue"
+
+inputs:
+  - name: APP_NAME
+    description: Fluttter app name
+    required: true
+
+  - name: FLUTTER_VERSION                              
+    default: 2.0.5
+    description: Version of Flutter SDK to be used
+    validvalues:
+    - 2.0.5
+    - 1.22.x
+    - 1.20.2
+
+  - name: JAVA_VERSION                                 
+    default: v12.0.15
+    description: Version of java to be used for this stack
+    validvalues:
+    - v12.0.15
+    - v12.0.10
+
+  - name: RUBY_VERSION                                 
+    default: 2.6
+    description: Version of Ruby to be used for this stack
+    validvalues:
+    - 2.6
+    - 2.7
+
+  - name: DEPLOY_TO_PLAY_STORE
+    description: Do you want to setup this stack to deploy to play store?
+    default: 'false'
+    ivalidvalues:
+    - 'true'
+    - 'false'
+
+  - name: ANDROID_KEYSTORE_BASE64
+    description: Base64 encoded Android Keystore for signing
+    required: false
+    is_secret: true
+
+  - name: ANDROID_PACKAGE_NAME
+    description: Android Package name
+    required: false
+    is_secret: true
+
+  - name: GOOGLE_SERVICE_ACCOUNT_KEY
+    description: Google Service Account Key
+    required: false
+    is_secret: true
+
+configs:
+  repo-metadata:
+    topics:
+      - flutter
+      - android
+
+  branches:
+    - name: main
+
+  environments:
+    - name: development
+
+init:
+  - uses: ".github/workflows/stack-init.yaml"
