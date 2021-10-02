@@ -30,12 +30,12 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v1
         with:
-          java-version: ${{ env.JAVA_VERSION }}
+          java-version: ${{ github.event.inputs.JAVA_VERSION }} 
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v1
         with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
+          flutter-version: ${{ github.event.inputs.FLUTTER_VERSION }} 
           channel: beta
 
       - name: Flutter version
@@ -106,8 +106,13 @@ jobs:
 
   generate-apk:
       needs: setup
-      uses: 3loka/flutter-stack-test/.github/workflows/generate-apk.yaml@main
+      uses: 3loka/flutter-stack-test/.github/workflows/generate-apk.yml@main
 
-
+  if:'${{ github.event.inputs.DEPLOY_TO_PLAY_STORE }}' == 'true'
+  deploy_to_aws:
+    needs: setup
+    uses: 3loka/flutter-stack-test/.github/workflows/push-to-playstore.yml@main
+    with:
+      RUBY_VERSION: '${{ github.event.inputs.RUBY_VERSION }}'
 
       
