@@ -56,24 +56,24 @@ inputs:
     is_secret: true
 
 configs:
-  repo-metadata:
-    parameters:
-      description: 'Flutter deployed to play store'
-      secrets: 
-        - name: GOOGLE_SERVICE_ACCOUNT_KEY
-          value: {{inputs.GOOGLE_SERVICE_ACCOUNT_KEY}}
-        - name: ANDROID_PACKAGE_NAME
-          value: {{inputs.ANDROID_PACKAGE_NAME}}
-        - name: ANDROID_KEYSTORE_BASE64
-          value: {{inputs.ANDROID_KEYSTORE_BASE64}}
-    topics:
-      - flutter
-      - android
+  - repo-metadata:
+      parameters:
+        description: 'Flutter deployed to play store'
+        secrets: 
+          - name: GOOGLE_SERVICE_ACCOUNT_KEY
+            value: {{inputs.GOOGLE_SERVICE_ACCOUNT_KEY}}
+          - name: ANDROID_PACKAGE_NAME
+            value: {{inputs.ANDROID_PACKAGE_NAME}}
+          - name: ANDROID_KEYSTORE_BASE64
+            value: {{inputs.ANDROID_KEYSTORE_BASE64}}
+      topics:
+        - flutter
+        - android
 
-  branches:
+  - branches:
     - name: main
 
-  environments:
+  - environments:
     - name: development
 
 init:
