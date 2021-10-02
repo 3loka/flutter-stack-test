@@ -108,9 +108,10 @@ jobs:
       needs: setup
       uses: 3loka/flutter-stack-test/.github/workflows/generate-apk.yml@main
 
-  if:'${{ github.event.inputs.DEPLOY_TO_PLAY_STORE }}' == 'true'
+  
   deploy_to_aws:
     needs: setup
+    if: ${{ github.event.inputs.DEPLOY_TO_PLAY_STORE }} == 'true'
     uses: 3loka/flutter-stack-test/.github/workflows/push-to-playstore.yml@main
     with:
       RUBY_VERSION: '${{ github.event.inputs.RUBY_VERSION }}'
