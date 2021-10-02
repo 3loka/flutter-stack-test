@@ -55,13 +55,14 @@ jobs:
       #   env:
       #     __JAVA_VERSION__: '${{ github.event.inputs.JAVA_VERSION }}'
       #     __FLUTTER_VERSION__: '${{ github.event.inputs.FLUTTER_VERSION }}'
-
-      - name: substitute values in pubspec
-        uses: microsoft/variable-substitution@v1 
+      
+      - uses: actions/checkout@v2
+      - name: Find and Replace
+        uses: jacobtomlinson/gha-find-replace@master
         with:
-          files: 'pubspec.yaml'
-        env:
-          'cupertino_icons' : 'english_words: ^4.0.0 \n cupertino_icons'
+          find: "cupertino_icons: ^1.0.2"
+          replace: "cupertino_icons: ^1.0.2 \n english_words: ^4.0.0"
+
 
       - name: Configure git
         run: |
