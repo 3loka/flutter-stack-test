@@ -44,8 +44,8 @@ jobs:
       - name: Stacks framework code generation
         run: |
           flutter create startup_namer
-          cp -r startup_namer/* .
-          rm -rf startup_namer
+          cp -r ${{ github.event.inputs.APP_NAME }}/* .
+          rm -rf ${{ github.event.inputs.APP_NAME }}
           cp .github/stacks/main.dart lib/main.dart
 
       # - name: substitute user inputs in the workflow files
