@@ -73,7 +73,7 @@ jobs:
         run: |
           git add .
           git commit -m "Generate framework code and initialize workflows"
-          git push 
+          git push origin main
           # We cant push to main since its protected in this stack
 
       - name: Flutter get packages
