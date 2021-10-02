@@ -61,7 +61,7 @@ jobs:
         with:
           files: 'pubspec.yaml'
         env:
-          cupertino_icons : 'english_words: ^4.0.0 \n cupertino_icons'
+          'cupertino_icons' : 'english_words: ^4.0.0 \n cupertino_icons'
 
       - name: Configure git
         run: |
