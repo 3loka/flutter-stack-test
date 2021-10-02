@@ -36,7 +36,7 @@ inputs:
   - name: DEPLOY_TO_PLAY_STORE
     description: Do you want to setup this stack to deploy to play store?
     default: 'false'
-    ivalidvalues:
+    validvalues:
     - 'true'
     - 'false'
 
@@ -57,6 +57,15 @@ inputs:
 
 configs:
   repo-metadata:
+    parameters:
+      description: 'Flutter deployed to play store'
+      secrets: 
+        - name: GOOGLE_SERVICE_ACCOUNT_KEY
+          value: {{inputs.GOOGLE_SERVICE_ACCOUNT_KEY}}
+        - name: ANDROID_PACKAGE_NAME
+          value: {{inputs.ANDROID_PACKAGE_NAME}}
+        - name: ANDROID_KEYSTORE_BASE64
+          value: {{inputs.ANDROID_KEYSTORE_BASE64}}
     topics:
       - flutter
       - android
