@@ -56,7 +56,6 @@ jobs:
       #     __JAVA_VERSION__: '${{ github.event.inputs.JAVA_VERSION }}'
       #     __FLUTTER_VERSION__: '${{ github.event.inputs.FLUTTER_VERSION }}'
       
-      - uses: actions/checkout@v2
       - name: Find and Replace
         uses: jacobtomlinson/gha-find-replace@master
         with:
