@@ -7,7 +7,9 @@
 
 ## Why should you use this stack?
 If you are new to Android Application development and want to skip the boring setup stuff and get going quikly, You have come to the right place.
-This stack generates a flutter based Android app, mentioned in this [tutorial](https://flutter.dev/docs/get-started/codelab). Sample app is not just generated but even deployed to android play store at the same time you are creating your repository. Dont worry, if you dont have a Google Developer account, you can skip that part, but we have the automation covered so you can come and set it up later.
+This stack generates a flutter based Android app, mentioned in this [tutorial](https://flutter.dev/docs/get-started/codelab). 
+
+A Sample app is not just generated but even deployed to android play store at the same time you are creating your repository. Dont worry, if you dont have a Google Developer account, you can skip that part, but we have the automation covered so you can come and set it up later.
 
 The stack also sets up a proper Github CI/CD environment by taing care of the following things
 - creating a "main" branch and protecting it with one code reviewer. 
