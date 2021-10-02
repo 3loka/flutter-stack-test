@@ -42,16 +42,19 @@ inputs:
 
   - name: ANDROID_KEYSTORE_BASE64
     description: Base64 encoded Android Keystore for signing
+    default: 'test'
     required: false
     is_secret: true
 
   - name: ANDROID_PACKAGE_NAME
     description: Android Package name
+    default: 'test'
     required: false
     is_secret: true
 
   - name: GOOGLE_SERVICE_ACCOUNT_KEY
     description: Google Service Account Key
+    default: 'test'
     required: false
     is_secret: true
 
