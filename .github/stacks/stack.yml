@@ -12,12 +12,12 @@ inputs:
     required: true
 
   - name: FLUTTER_VERSION                              
-    default: 2.0.5
+    default: '2.0.5'
     description: Version of Flutter SDK to be used
     validvalues:
-    - 2.0.5
-    - 1.22.x
-    - 1.20.2
+    - '2.0.5'
+    - '1.22.x'
+    - '1.20.2'
 
   - name: JAVA_VERSION                                 
     default: v12.0.15
@@ -27,11 +27,11 @@ inputs:
     - v12.0.10
 
   - name: RUBY_VERSION                                 
-    default: 2.6
+    default: '2.6'
     description: Version of Ruby to be used for this stack
     validvalues:
-    - 2.6
-    - 2.7
+    - '2.6'
+    - '2.7'
 
   - name: DEPLOY_TO_PLAY_STORE
     description: Do you want to setup this stack to deploy to play store?
